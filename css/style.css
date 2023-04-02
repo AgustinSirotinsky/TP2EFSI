@@ -1,0 +1,8 @@
+ul li {
+    padding: 12px 8px 12px 40px;
+    list-style-type: none;
+    background: #eee;
+  }
+body {
+    background-image: url("images/fondo_azul.jpg");
+}
