@@ -2,8 +2,8 @@ const elemento = () => (document.getElementById("elemento").value)
 const imprimirResultado = tiempo => document.getElementById("tiempo").innerHTML = tiempo
 let ElementosArray=[]
 let valor=0;
-let tiempoMasRapido=99999999999999;
-let tiempoMasRapidoTitulo="";
+let TiempoMaximo=999999999999999999999999999
+let TituloTiempoMaximo=""
 //Agregar los valores al array
 function AgregarAArray(elemento){
     let hora=Date.now()
@@ -27,20 +27,21 @@ function AgregarAArray(elemento){
     console.log(ElementosArray)
 }
 //Calcula tiempo desde que se creo hasta que se cerro
-function CalcularTiempo(tiempoDeId){
-    let horaActual=Date.now()
-    let tiempoDeTerminacion=horaActual-tiempoDeId
-    console.log(tiempoDeTerminacion)
-    if(tiempoDeTerminacion<tiempoMasRapido){
-        tiempoMasRapido=tiempoDeTerminacion
-        tiempoMasRapidoTitulo=""
+function CalcularTiempo(elementoElegido){
+    let TiempoActual=Date.now()
+    console.log(elementoElegido.id)
+    let TiempoHastaCerrar=TiempoActual-elementoElegido.id
+    console.log(`Tiempo hasta cerrar: ${TiempoHastaCerrar}`)
+    console.log(`Tiempo Maximo:${TiempoMaximo}`)
+    if(TiempoHastaCerrar<TiempoMaximo){
+        TiempoMaximo=TiempoHastaCerrar
+        TituloTiempoMaximo=elementoElegido.title
     }
+    
 }
 //Imprime el resultado de que tarea se hizo mas rapido
 function ImprimirTiempo(){
-    let tiempoAImprimir=ElementosArray.indexOf[tiempoMasRapido]
-    console.log(tiempoAImprimir)
-    imprimirResultado(tiempoMasRapido)
+    imprimirResultado(`Tarea hecha mas rapida: ${TituloTiempoMaximo}`)
 }
 //Activado por el boton
 function Agregar(){
@@ -52,9 +53,15 @@ function Agregar(){
 //Tachar elementos clickeados
 var list = document.querySelector('ul');
 list.addEventListener('click', function(evt) {
-  console.log("lista clickeada");
   if(evt.target.tagName === "LI") {
     evt.target.classList.toggle("checked");
-    CalcularTiempo(ElementosArray.indexOf(evt.target.id))
+    console.log(ElementosArray.length)
+    console.log(evt.target.id)
+    for (let i=0;i<ElementosArray.length;i++){
+        console.log(ElementosArray[i].id)
+        if (ElementosArray[i].id==evt.target.id){
+            CalcularTiempo(ElementosArray[i])
+        }
+    }
   }
 }, false);
